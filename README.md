@@ -1,4 +1,6 @@
-#Download files 
+### Plasmid project
+
+# Download files 
 Data was retrieved from https://ccb-microbe.cs.uni-saarland.de/plsdb/plasmids/
 Fileted by choosing only Incf and circular plasmids
 
