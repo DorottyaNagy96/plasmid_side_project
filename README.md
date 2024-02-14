@@ -4,44 +4,70 @@
 Data was retrieved from https://ccb-microbe.cs.uni-saarland.de/plsdb/plasmids/
 Fileted by choosing only Incf and circular plasmids. 
 
-For the following steps you will need to change the paths, for out output paths I reccommend NOT changing it and just outputting whereveer 
+For the following steps you will need to change the paths, for output paths, I recommend NOT changing it and just outputting wherever 
 you are, annoying but it gave me errors. I just moved all the files with mv *.fasta path/you/want later.
 
+Separate each sequence into its own fasta. Prokka seems to prepare one genome per command, check this. 
 ```bash 
 gzcat incf.fna.gz | awk '/^>/{if(x>0) close(x".fasta"); x++;}{print > ("prokka_dir/fastas/"x".fasta")}'
 cat all.fna | awk '/^>/{if(x>0) close(x".fasta"); x++;}{print > (""x".fasta")}' 
 ```
-
-Separate each sequence into its own fasta. Prokka seems to prepare one genome per command, check this. 
-
+Rename each fasta by its plasmid name: format is plasmid_id.fasta
 ```bash 
 for sample in ./fastas/*.fasta; do mv $sample "$(head -1 $sample | awk '{print $1}' | sed 's/>//g').fasta"; done
 ```
-Rename each fasta by its plasmid name: format is plasmid_id.fasta
 
 ## setup env and dir
 With conda: simply recreate my env
+```bash
+conda env create -f environment.yml
+```
 
 If you download any new packages/software, create a new yaml file 
 code 
 And then update the GIT. 
+```bash
+conda env export > environment.yml
+```
 
 ## prokka 
+List databases used by prokka, maybe change to get just AMR and virulence genes?
 ```bash 
 prokka --listdb 
 ```
+
+Prokka was run with the following code, see prokka.sh. 
+```bash
+or sample in fastas/*.fasta; do \
+	prokka --outdir 'annot/'$(basename $sample .fasta)'/' \
+	--prefix $(basename $sample .fasta)  \
+	$sample \
+    --plasmid IncF ; done
+```
+
+check.sh simply checks that every single output folder does not contain an error, as the output is overwhelming. 
+```bash
+for sample in fastas/*.fasta; do \
+	if grep -q "Annotation finished successfully."  \
+'annot/'$(basename $sample .fasta)'/'$(basename $sample .fasta)'.log'; then
+	: 
+	else
+    		echo "Alignment failed for " $sample  
+	fi; done
+
+```
+
 ## panaroo 
 Check for contaminations? But we need a reference genome. Is there one? I guess incf backbone? we could  
-try? Depends ont the qc of teh daatbase. Anyways, we can think about this later, as we can remove samples 
-form the pieline at any poitn. 
+try? Depends ont the qc of teh daatbase. Anyway, we can think about this later, as we can remove samples 
+from the pipeline at any point. This was NOT run. 
 ```bash
 panaroo-qc -i *.gff -o results -t 3 --graph_type all --ref_db 
 refseq.genomes.k21s1000.msh
 ```
 
-There are so many panaroo parameters, we need to dicuss. I guess try mnany and see what yields best 
-phyogenetic tree?
-
+There are so many panaroo parameters, we need to discuss. I guess try mnany and see what yields the best 
+phylogenetic tree?
 ```bash 
 panaroo -i *.gff -o panaroo/matrices \
 	 --clean-mode strict \  # removes most sources of contaminations, neecessary if we dont QC
@@ -59,7 +85,6 @@ panaroo -i *.gff -o panaroo/matrices \
 ```
 
 I used the following setup, it did not work. Could be my computer. 
-
 ```bash
 panaroo -i gff_dir/*.gff -o out_core_std --clean-mode strict -a core 
 ```
