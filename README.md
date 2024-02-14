@@ -56,6 +56,7 @@ for sample in fastas/*.fasta; do \
 	fi; done
 
 ```
+The .ggfs are too big to fit in the GitHub. 
 
 ## panaroo 
 Check for contaminations? But we need a reference genome. Is there one? I guess incf backbone? we could  
