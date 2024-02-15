@@ -60,9 +60,20 @@ The .ggfs are too big to fit in the GitHub.
 
 ## Discovery 
 See discovery.pdf for discovery analysis, I wanted to take a look at the plasmids and genes. Summary: 
-1. Most common genes are present only int 50-70% of plasmids.
-2. 23
-3. 
+1. Most common genes are present only in 50-70% of plasmids. Hence, panaroo coore at 50%. 
+2. Plasmids have on average 40-60 genes, some have very little/many -- remove?
+3. Simple T-SNE analysis is not able to differentiate groups, though small clusters do appear.
+4. I do not know enough about IncF plasmids and how we can compare them.
+
+## Phylogenetics methodology
+### How accurate is panaroo for plasmids? 
+- core threshold FAR too high, maybe pan?
+### Phylogenetic analysis of plasmids I have taken a look at have been less than 100 plasmids:
+- we will need to try various methods and combine/choose the best?
+- Comparison of similar genes, the same principle of panarooo but different software: https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2018.02167/full#h3 . 
+- PopPUNK using k-mer differences? https://doi.org/10.1089/mdr.2021.0164 . 
+- OSNAp an ORF-based method, where presence and absence of genes is used regardless of actual seq: https://doi.org/10.1016/j.plasmid.2019.102477 . 
+- More gene-gene comparison https://doi.org/10.1093/molbev/mss210 . 
 
 ## panaroo 
 Check for contaminations? But we need a reference genome. Is there one? I guess incf backbone? we could  
