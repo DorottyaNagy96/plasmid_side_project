@@ -58,6 +58,12 @@ for sample in fastas/*.fasta; do \
 ```
 The .ggfs are too big to fit in the GitHub. 
 
+## Discovery 
+See discovery.pdf for discovery analysis, I wanted to take a look at the plasmids and genes. Summary: 
+1. Most common genes are present only int 50-70% of plasmids.
+2. 23
+3. 
+
 ## panaroo 
 Check for contaminations? But we need a reference genome. Is there one? I guess incf backbone? we could  
 try? Depends ont the qc of teh daatbase. Anyway, we can think about this later, as we can remove samples 
