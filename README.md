@@ -83,7 +83,17 @@ from the pipeline at any point. This was NOT run.
 panaroo-qc -i *.gff -o results -t 3 --graph_type all --ref_db 
 refseq.genomes.k21s1000.msh
 ```
+### Panaroo tries
+I tried just running, but it did not work. 
+After the discovery python script we decided to try with a core threshold of 50%. 
+```python
+860it [6:25:21, 12.70s/it]./pano.sh: line 1: 18756 Killed: 9               panaroo -i gff_dir/*.gff -o out_core_0_5 --clean-mode strict -a core --core_threshold 0.50
+(bax) frivetti@Francescos-MacBook-Air panaroo_dir % /opt/homebrew/Caskroom/miniforge/base/envs/bax/lib/python3.10/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+```
+It did not work, now I think it is an issue of my laptop and the dataset being too big. 
 
+### panaroo notes
 There are so many panaroo parameters, we need to discuss. I guess try mnany and see what yields the best 
 phylogenetic tree?
 ```bash 
